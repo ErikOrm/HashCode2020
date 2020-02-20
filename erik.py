@@ -51,15 +51,17 @@ def get_library_books(B, library_books, book_values, l, remaining_time, ship_rat
     books_sent = np.cumsum(library_books[l,:])
     end = np.searchsorted(books_sent, remaining_books_to_ship)
 
-    return [x for x in range(end) if library_books[l,x] = True]
+    return [x for x in range(end) if library_books[l,x] == True]
 
 
 def print_solution(filename, libraries, books):
     f = open(filename, "w")
     f.write("%i\n" % len(libraries))
-    for i in range(len(libraries)):
+    for i in range(len(libraries) - 1):
         f.write("%i %i\n" % (libraries[i], len(books[i])))
         f.write("%s \n" % " ".join(str(x) for x in books[i]))
+    f.write("%i %i\n" % (libraries[i], len(books[i])))
+    f.write("%s" % " ".join(str(x) for x in books[i]))
     f.close()
 
 
