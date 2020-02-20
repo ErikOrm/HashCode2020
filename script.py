@@ -49,8 +49,7 @@ for file in files:
     t = 0
     while t < D:
         scores = np.array([list(get_library_value(B, library_books, book_values, lib_id, D-t, ship_rate[lib_id], n_days[lib_id])) if not used_libary[lib_id] else (-1000,-1000) for lib_id in range(L)])
-        print(scores.shape)
-        new_library = np.lexsort(scores[:,1], scores[:,0])[0] #Check descending
+        new_library = np.lexsort((scores[:,1], -1*scores[:,0]))
         used_libary[new_library] = True
         t += n_days[new_library]
         used_books = get_library_books(B, library_books, book_values, new_library, t-D, ship_rate[new_library])
