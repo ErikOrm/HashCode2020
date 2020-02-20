@@ -76,7 +76,7 @@ for file in files:
 
         score += scores[new_library_idx, 0]
 
-    print_solution(file.split("_")[0] +"_"+ str(score) + ".txt", library_order, book_order)
+    print_solution(file.split("_")[0] +"_"+ str(int(score)) + ".txt", library_order, book_order)
 
 
 
