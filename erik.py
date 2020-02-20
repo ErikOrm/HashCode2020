@@ -35,22 +35,19 @@ def load_data(name):
     return (B, L, D, library_books, book_values, n_books, n_days, ship_rate)
 
 
-def get_library_value(B, library_books, book_values, l, remaining_time, ship_rate):
+def get_library_value(B, library_books, book_values, l, remaining_time, ship_rate, setup_time):
     remaining_books = np.sum(library_books[l,:])
     prod = np.multiply(library_books[l,:], book_values)
     remaining_books_to_ship = remaining_time*ship_rate
     books_sent = np.cumsum(library_books[l,:])
     end = np.searchsorted(books_sent, remaining_books_to_ship)
+    return np.sum(prod[:end])/setup_time, math.ceil((remaining_books_to_ship-remaining_books)/ship_rate)
 
-    # if remaining_books_to_ship >= remaining_books:
-    #     end = B
-    # else:
-    #     LB = 0
-    #     UB = B
-    #     while LB != UB:
-    #         end = math.ceil((UB + LB)/2)
-    #         if  np.sum(library_books[l,:end]) >= remaining_books_to_ship:
-    #             UB = end
-    #         else:
-    #             LB  = end
-    return np.sum(prod[:end]), math.ceil((remaining_books_to_ship-remaining_books)/ship_rate)
+
+def get_library_books(B, library_books, book_values, l, remaining_time, ship_rate):
+    remaining_books = np.sum(library_books[l,:])
+    remaining_books_to_ship = remaining_time*ship_rate
+    books_sent = np.cumsum(library_books[l,:])
+    end = np.searchsorted(books_sent, remaining_books_to_ship)
+
+    return np.argwhere(library_books[l,:end]), math.ceil((remaining_books_to_ship-remaining_books)/ship_rate)
