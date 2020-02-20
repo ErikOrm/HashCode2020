@@ -32,6 +32,8 @@ Smallest bookvalues [1. 1. 1. 1. 1.]
 Largest/Smallest setupdays 10.0 1.0
 '''
 files = ["a_example.txt", "b_read_on.txt", "c_incunabula.txt", "d_tough_choices.txt", "e_so_many_books.txt"]
+#files = ["a_example.txt", "b_read_on.txt", "e_so_many_books.txt"]
+
 
 for file in files:
     print(file)
@@ -45,14 +47,21 @@ for file in files:
     #print("Smallest bookvalues", book_values[-5:])
     #print("Largest/Smallest setupdays", np.max(n_days), np.min(n_days))
 
-    used_libary = np.zeros(L, dtype=np.bool)
+    used_library = np.zeros(L, dtype=np.bool)
 
     t = 0
     while t < D:
         print(t, "/", D)
-        scores = np.array([list(get_library_value(B, library_books, book_values, lib_id, D-t, ship_rate[lib_id], n_days[lib_id])) if not used_libary[lib_id] else (-1000,-1000) for lib_id in range(L)])
+        if L > 150:
+            libindx = np.random.choice([i for i,x in enumerate(used_library) if not x],100, replace=False)
+        else:
+            libindx = [i for i, x in enumerate(used_library) if not x]
+
+        scores = np.array([list(get_library_value(B, library_books, book_values, lib_id, D-t, ship_rate[lib_id], n_days[lib_id])) for lib_id in libindx])
+        if len(scores) == 0:
+            break
         new_library = np.lexsort((scores[:,1], -1*scores[:,0]))[0]
-        used_libary[new_library] = True
+        used_library[new_library] = True
         t += n_days[new_library]
         used_books = get_library_books(B, library_books, book_values, new_library, t-D, ship_rate[new_library])
         for book in used_books:
