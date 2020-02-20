@@ -70,6 +70,8 @@ for file in files:
         used_books = get_library_books(B, library_books, book_values, new_library, D-t, ship_rate[new_library])
         for book in used_books:
             library_books[:,book] = False
+        if len(used_books) == 0:
+            break
         library_order.append(new_library)
         book_order.append(sortindex[used_books])
 
