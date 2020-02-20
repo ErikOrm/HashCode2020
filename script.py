@@ -67,13 +67,13 @@ for file in files:
         new_library = libindx[new_library_idx]
         used_library[new_library] = True
         t += n_days[new_library]
-        used_books = get_library_books(B, library_books, book_values, new_library, t-D, ship_rate[new_library])
+        used_books = get_library_books(B, library_books, book_values, new_library, D-t, ship_rate[new_library])
         for book in used_books:
             library_books[:,book] = False
-
         library_order.append(new_library)
         book_order.append(gobackindex[used_books])
 
+        print(used_books)
         score += scores[new_library_idx, 0]
 
     print_solution(file.split("_")[0] +"_"+ str(int(score)) + ".txt", library_order, book_order)
