@@ -40,7 +40,8 @@ def get_library_value(B, library_books, book_values, l, remaining_time, ship_rat
     prod = np.multiply(library_books[l,:], book_values)
     remaining_books_to_ship = remaining_time*ship_rate
     books_sent = np.cumsum(library_books[l,:])
-    end = np.searchsorted(books_sent, remaining_books_to_ship)
+    end = np.searchsorted(books_sent, remaining_books_to_ship)[0]
+    
     return np.sum(prod[:end])/setup_time, math.ceil((remaining_books_to_ship-remaining_books)/ship_rate)
 
 
