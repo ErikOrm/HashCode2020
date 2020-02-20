@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from erik import load_data
+from erik import load_data, get_library_value
 from emilio import set_up
 
 
@@ -36,10 +36,18 @@ files = ["a_example.txt", "b_read_on.txt", "c_incunabula.txt", "d_tough_choices.
 for file in files:
     B, L, D, library_books, book_values, n_books, n_days, ship_rate = load_data(file)
 
-    sortindex,book_value,library_books, gobackindex = set_up(book_values, library_books)
+    sortindex,book_values,library_books, gobackindex = set_up(book_values, library_books)
     #print(file)
     #print("Books:", B, "Libraries:", L, "Days:", D)
-    #print("Largest bookvalues", book_value[0:5])
-    #print("Smallest bookvalues", book_value[-5:])
+    #print("Largest bookvalues", book_values[0:5])
+    #print("Smallest bookvalues", book_values[-5:])
     #print("Largest/Smallest setupdays", np.max(n_days), np.min(n_days))
+
+    used_libary = np.zeros(L, dtype=np.bool)
+
+    t = 0
+    while t < D:
+        scores = [get_library_value(B, library_books, lib_id, t-D, ship_rate)[0] if not used_libary[lib_id] else -1000 for lib_id in range(L)]
+        np.argmax(scores)
+
 
