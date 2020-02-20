@@ -50,4 +50,4 @@ def get_library_books(B, library_books, book_values, l, remaining_time, ship_rat
     books_sent = np.cumsum(library_books[l,:])
     end = np.searchsorted(books_sent, remaining_books_to_ship)
 
-    return np.argwhere(library_books[l,:end]), math.ceil((remaining_books_to_ship-remaining_books)/ship_rate)
+    return np.argwhere(library_books[l,:end])
