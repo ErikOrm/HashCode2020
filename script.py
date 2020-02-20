@@ -34,6 +34,7 @@ Largest/Smallest setupdays 10.0 1.0
 files = ["a_example.txt", "b_read_on.txt", "c_incunabula.txt", "d_tough_choices.txt", "e_so_many_books.txt"]
 
 for file in files:
+    print(file)
 # f = open("a_example.txt", "r")
     B, L, D, library_books, book_values, n_books, n_days, ship_rate = load_data(file)
 
@@ -48,8 +49,9 @@ for file in files:
 
     t = 0
     while t < D:
+        print(t, "/", D)
         scores = np.array([list(get_library_value(B, library_books, book_values, lib_id, D-t, ship_rate[lib_id], n_days[lib_id])) if not used_libary[lib_id] else (-1000,-1000) for lib_id in range(L)])
-        new_library = np.lexsort((scores[:,1], -1*scores[:,0]))
+        new_library = np.lexsort((scores[:,1], -1*scores[:,0]))[0]
         used_libary[new_library] = True
         t += n_days[new_library]
         used_books = get_library_books(B, library_books, book_values, new_library, t-D, ship_rate[new_library])
