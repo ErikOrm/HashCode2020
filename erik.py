@@ -60,8 +60,8 @@ def print_solution(filename, libraries, books):
     for i in range(len(libraries) - 1):
         f.write("%i %i\n" % (libraries[i], len(books[i])))
         f.write("%s \n" % " ".join(str(x) for x in books[i]))
-    f.write("%i %i\n" % (libraries[i], len(books[i])))
-    f.write("%s" % " ".join(str(x) for x in books[i]))
+    f.write("%i %i\n" % (libraries[len(libraries)-1], len(books[len(libraries)-1])))
+    f.write("%s" % " ".join(str(x) for x in books[len(libraries)-1]))
     f.close()
 
 
