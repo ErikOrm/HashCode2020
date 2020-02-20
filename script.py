@@ -73,7 +73,6 @@ for file in files:
         library_order.append(new_library)
         book_order.append(gobackindex[used_books])
 
-        print(used_books)
         score += scores[new_library_idx, 0]
 
     print_solution(file.split("_")[0] +"_"+ str(int(score)) + ".txt", library_order, book_order)
