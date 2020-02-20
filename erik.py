@@ -41,6 +41,7 @@ def get_library_value(B, library_books, book_values, l, remaining_time, ship_rat
     remaining_books_to_ship = remaining_time*ship_rate
     books_sent = np.cumsum(library_books[l,:])
     end = np.searchsorted(books_sent, remaining_books_to_ship)
+
     return np.sum(prod[:end])/setup_time, math.ceil((remaining_books_to_ship-remaining_books)/ship_rate)
 
 
@@ -51,3 +52,17 @@ def get_library_books(B, library_books, book_values, l, remaining_time, ship_rat
     end = np.searchsorted(books_sent, remaining_books_to_ship)
 
     return np.argwhere(library_books[l,:end])
+
+
+def print_solution(filename, libraries, books):
+    f = open(filename, "w")
+    f.write("%i\n" % len(libraries))
+    for i in range(len(libraries)):
+        f.write("%i %i\n" % (libraries[i], len(books[i])))
+        f.write("%s \n" % " ".join(str(x) for x in books[i]))
+    f.close()
+
+
+
+if __name__ == "__main__":
+    print_solution("out.txt", (1,3,2), [[1,3],[2,3],[4,2,4]])
