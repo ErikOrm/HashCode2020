@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from erik import load_data, get_library_value, get_library_books
+from erik import load_data, get_library_value, get_library_books, print_solution
 from emilio import set_up
 
 
@@ -50,6 +50,9 @@ for file in files:
     used_library = np.zeros(L, dtype=np.bool)
 
     t = 0
+    library_order = []
+    book_order = []
+    score = 0
     while t < D:
         print(t, "/", D)
         if L > 150:
@@ -60,13 +63,20 @@ for file in files:
         scores = np.array([list(get_library_value(B, library_books, book_values, lib_id, D-t, ship_rate[lib_id], n_days[lib_id])) for lib_id in libindx])
         if len(scores) == 0:
             break
-        new_library = np.lexsort((scores[:,1], -1*scores[:,0]))[0]
+        new_library_idx = np.lexsort((scores[:,2], -1*scores[:,1]))[0]
+        new_library = libindx[new_library_idx]
         used_library[new_library] = True
         t += n_days[new_library]
         used_books = get_library_books(B, library_books, book_values, new_library, t-D, ship_rate[new_library])
         for book in used_books:
             library_books[:,book] = False
 
-        #Print out books to file
+        library_order.append(new_library)
+        book_order.append(gobackindex[used_books])
+
+        score += scores[new_library_idx, 0]
+
+    print_solution(file.split("_")[0] +"_"+ str(score) + ".txt", library_order, book_order)
+
 
 
