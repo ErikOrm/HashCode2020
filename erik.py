@@ -51,6 +51,3 @@ def get_library_value(B, library_books, library, remaining_time, ship_rate):
             else:
                 LB  = end
     return np.sum(prod[:end]), math.ceil((remaining_books_to_ship-remaining_books)/ship_rate)
-
-
-def basic_greedy(B, L, D, library_books, book_values, n_books, n_days, ship_rate):
