@@ -1,6 +1,11 @@
 import numpy as np
 
-f = open("a_example.txt", "r")
+# f = open("a_example.txt", "r")
+# f = open("b_read_on.txt", "r")
+# f = open("c_incunabula.txt", "r")
+# f = open("d_tough_choices.txt", "r")
+# f = open("e_so_many_books.txt", "r")
+f = open("f_libraries_of_the_world.txt", "r")
 
 line_list = f.readline().split()
 B = int(line_list[0])
