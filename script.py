@@ -32,15 +32,15 @@ Smallest bookvalues [1. 1. 1. 1. 1.]
 Largest/Smallest setupdays 10.0 1.0
 '''
 files = ["a_example.txt", "b_read_on.txt", "c_incunabula.txt", "d_tough_choices.txt", "e_so_many_books.txt"]
-#files = ["a_example.txt", "b_read_on.txt", "e_so_many_books.txt"]
+#files = ["a_example.txt"]
 
 
 for file in files:
     print(file)
 # f = open("a_example.txt", "r")
-    B, L, D, library_books, book_values, n_books, n_days, ship_rate = load_data(file)
+    B, L, D, lib, book, n_books, n_days, ship_rate = load_data(file)
+    sortindex,book_values,library_books, gobackindex = set_up(book, lib)
 
-    sortindex,book_values,library_books, gobackindex = set_up(book_values, library_books)
     #print(file)
     #print("Books:", B, "Libraries:", L, "Days:", D)
     #print("Largest bookvalues", book_values[0:5])
@@ -71,7 +71,7 @@ for file in files:
         for book in used_books:
             library_books[:,book] = False
         library_order.append(new_library)
-        book_order.append(gobackindex[used_books])
+        book_order.append(sortindex[used_books])
 
         score += scores[new_library_idx, 0]
 
