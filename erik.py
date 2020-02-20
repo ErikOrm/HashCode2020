@@ -51,7 +51,7 @@ def get_library_books(B, library_books, book_values, l, remaining_time, ship_rat
     books_sent = np.cumsum(library_books[l,:])
     end = np.searchsorted(books_sent, remaining_books_to_ship)
 
-    return [x[0] for x in np.argwhere( for x in library_books[l,:end]>0) ]
+    return [x[0] for x in np.argwhere(library_books[l,:end]>0) ]
 
 
 def print_solution(filename, libraries, books):
