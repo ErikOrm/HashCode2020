@@ -35,9 +35,9 @@ def load_data(name):
     return (B, L, D, library_books, book_values, n_books, n_days, ship_rate)
 
 
-def get_library_value(B, library_books, library, remaining_time, ship_rate):
+def get_library_value(B, library_books, book_values, library, remaining_time, ship_rate):
     remaining_books = np.sum(library_books[l,:])
-    prod = numpy.multiply(library_books[l,:], book_values)
+    prod = np.multiply(library_books[l,:], book_values)
     remaining_books_to_ship = remaining_time*ship_rate
     if remaining_books_to_ship >= remaining_books:
         end = B
